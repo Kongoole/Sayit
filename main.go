@@ -18,8 +18,8 @@ func main() {
 
 	c := make(chan string)
 
-	go writer(c)
 	wg.Add(1)
+	go writer(c)
 
 	for i := 0; i < 1000; i++ {
 		wg.Add(1)
@@ -51,7 +51,7 @@ func writer(c chan string) {
 }
 
 // speaker reads char from channel and then say it
-func speaker(c <-chan string) {
+func speaker(c chan string) {
 	for w := range c {
 		cmd := exec.Command("say", w)
 		fmt.Println(w)
